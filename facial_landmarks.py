@@ -17,20 +17,30 @@ import os
 def getFacialLandmarks(directory, shape_predictor):
 	directory = os.fsencode(directory)
 
+	print("Initializing...")
 	# initialize dlib's face detector (HOG-based) and then create
 	# the facial landmark predictor
 	detector = dlib.get_frontal_face_detector()
 	predictor = dlib.shape_predictor(shape_predictor)
+
+	print("\nRemoving old files...")
+
+	number = len(os.listdir(directory))
+	print("%d files in total" % number)
+	counter = 0
 
 	for file in os.listdir(directory):
 		filename = os.fsdecode(file)
 		if filename.endswith(".txt"):
 			open(os.fsdecode(directory) + "/" + filename, "w")
 
+	print("\nFinding mouths...")
+
 	for file in os.listdir(directory):
 		filename = os.fsdecode(file)
 		if filename.endswith(".jpg"):
-
+			print("%f%% done" % (counter / number))
+			# print(str(counter))
 			# load the input image, resize it, and convert it to grayscale
 			image = cv2.imread(os.fsdecode(directory) + "/" + filename)
 			if image is None:
@@ -63,7 +73,7 @@ def getFacialLandmarks(directory, shape_predictor):
 
 				width = max_x - min_x
 				height = max_y - min_y
-				cv2.rectangle(image, (min_x, min_y), (max_x, max_y), (0, 255, 0), 2)
+				# cv2.rectangle(image, (min_x, min_y), (max_x, max_y), (0, 255, 0), 2)
 
 				# write the bounding box to a file
 				# f = open(os.fsdecode(directory) + "/" + filename.replace(".jpg", ".txt"), "w")
@@ -71,8 +81,9 @@ def getFacialLandmarks(directory, shape_predictor):
 				f.write(str(min_x) + " " + str(min_y) + " " + str(width) + " " + str(height) + "\n")
 				f.close()
 
-				cv2.imshow("Output", image)
-				cv2.waitKey(0)
+				# cv2.imshow("Output", image)
+				# cv2.waitKey(0)
+		counter += 1
 
 if __name__ == "__main__":
 	ap = argparse.ArgumentParser()
