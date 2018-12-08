@@ -39,7 +39,7 @@ def getFacialLandmarks(directory, shape_predictor):
 	for file in os.listdir(directory):
 		filename = os.fsdecode(file)
 		if filename.endswith(".jpg"):
-			print("%f%% done" % (counter / number))
+			print("%f%% done" % ((counter / number) * 100))
 			# print(str(counter))
 			# load the input image, resize it, and convert it to grayscale
 			image = cv2.imread(os.fsdecode(directory) + "/" + filename)
