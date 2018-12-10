@@ -31,7 +31,7 @@ def getFacialLandmarks(directory, shape_predictor):
 
 	for file in os.listdir(directory):
 		filename = os.fsdecode(file)
-		if filename.endswith(".txt"):
+		if filename.endswith(".txt") and not "framecount" in filename:
 			open(os.fsdecode(directory) + "/" + filename, "w")
 
 	print("\nFinding mouths...")

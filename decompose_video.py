@@ -8,7 +8,7 @@ def splitFrames(directory, filename):
 
     vidcap = cv2.VideoCapture(filename)
     success,image = vidcap.read()
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     count = 0
 
@@ -16,15 +16,19 @@ def splitFrames(directory, filename):
         os.makedirs(directory)
 
     while success:
-        success, image = vidcap.read()
         if count % 2 == 0:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            image = cv2.transpose(image)
-            image = cv2.flip(image, 1)
+            # image = cv2.transpose(image)
+            # image = cv2.flip(image, 1)
             cv2.imwrite(directory + "/frame%d.jpg" % (count / 2), image)     # save frame as JPEG file      
             # print('Read a new frame: ', success)
+        success, image = vidcap.read()
         count += 1
         print(count)
+
+    f = open(os.path.join(directory, "framecount.txt"), "w")
+    f.write(str((count + 1) // 2))
+    f.close()
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
