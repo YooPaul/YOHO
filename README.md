@@ -1,4 +1,4 @@
-# YOHO
+# YOHO(You Only Hear Once)
 
 YOHO(Yoo and Horne) Mouth movement detector.
 
