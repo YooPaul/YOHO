@@ -39,6 +39,7 @@ def crop(directory):
                 crop_img = img[int(y * s):int((y + h) * s), int(x * s):int((x + w) * s)]
                 cv2.imwrite(os.fsdecode(directory) + "/" + filename.replace(".jpg", "") + "-" + str(i) + ".jpg", crop_img)
                 i += 1
+            os.remove(os.path.join(os.fsdecode(directory), filename))
         counter += 1
 
 if __name__ == "__main__":

@@ -47,7 +47,8 @@ class GeneralDataset(Dataset):
             concatImage = image if concatImage is None else np.concatenate((concatImage, image), axis=-1)
         if self.transform:
             concatImage = self.transform(concatImage)
-        return concatImage
+        return {'image': concatImage, 'framenum': self.list[idx * 15][self.list[idx * 15].rfind("frame")+5:self.list[idx * 15].rfind("-")],
+                'mouthnum': self.list[idx * 15][self.list[idx * 15].rfind("-")+1:-4]}
 
 # face_dataset = GeneralDataset("frames")
 
